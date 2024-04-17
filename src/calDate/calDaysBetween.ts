@@ -1,6 +1,6 @@
 import { parseISO, differenceInCalendarDays } from 'date-fns';
 
-export const calDaysBetween = (dateStr1: string, dateStr2: string): number => {
+export function calDaysBetween(dateStr1: string, dateStr2: string): number {
   const date1 = parseISO(dateStr1);
   const date2 = parseISO(dateStr2);
   

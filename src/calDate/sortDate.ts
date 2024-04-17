@@ -1,15 +1,7 @@
-export const sortDates = (dates: string[], option: string): string[] => {
-
-  const compareDates = (date1: string, date2: string): number => {
-    const d1 = new Date(date1);
-    const d2 = new Date(date2);
-    
-    return d1.getTime() - d2.getTime();
-  };
-
+export function sortDates(dates: string[], option?: string): string[]{
   var sortedDates: string[] = [...dates];
 
-  if (option === 'asc') {
+  if (option === 'asc' || !option) {
     sortedDates.sort(compareDates);
     
   } else if (option === 'desc') {
@@ -18,3 +10,10 @@ export const sortDates = (dates: string[], option: string): string[] => {
 
   return sortedDates;
 }
+
+function compareDates(date1: string, date2: string): number {
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+  
+  return d1.getTime() - d2.getTime();
+};
