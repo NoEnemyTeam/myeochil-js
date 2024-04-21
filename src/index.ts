@@ -1,3 +1,1 @@
-export const hello = (name: string): string => {
-    return `hello ${name}`;
-}
+export { toLunar, toSolar } from "./convertLunarSolar/converDate"
