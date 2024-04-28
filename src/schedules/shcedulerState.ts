@@ -47,7 +47,11 @@ class SchedulerState {
   public deleteScheduleByName(name: string) {
     const index = this.schedules.findIndex(job => job.name === name);
     if (index !== -1) {
+      this.schedules[index].cancel()
       this.schedules.splice(index, 1);
+    }
+    else {
+      console.log(`Schedule ${name} is not found.`)
     }
   }
 
