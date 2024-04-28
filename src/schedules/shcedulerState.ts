@@ -17,11 +17,27 @@ class SchedulerState {
   
   public printSchedules() {
     const jobNames = this.schedules.map(job => job.name);
-    console.log(`[${jobNames.join(', ')}]`)
+    console.log(`[${jobNames.join(', ')}]`);
   }
 
-  public getSchedules(): Job[] {
-    return this.schedules;
+  public getSchedules(date?: string) {
+    if(!date) {
+      return this.schedules.map(job => ({ name: job.name, nextInvocation: job.nextInvocation() }));
+    }
+
+    const target = new Date(date);
+    target.setHours(0, 0, 0, 0);
+
+    return this.schedules.filter(job => {
+      const nextTime = job.nextInvocation();
+      if (nextTime) {
+        const nextDate = new Date(nextTime);
+        nextDate.setHours(0, 0, 0, 0);
+        return nextDate.getTime() === target.getTime();
+      }
+      return false;
+    }).map(job => ({ name: job.name, nextInvocation: job.nextInvocation() }));
+
   }
 
   public addSchedule(job: Job) {

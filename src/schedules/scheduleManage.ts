@@ -1,8 +1,12 @@
 import { Job } from 'node-schedule';
 import SchedulerState from './shcedulerState';
 
-export function getSchedules(): Job[] {
+export function getSchedules(date?:string) {
   const schedulerState = SchedulerState.getInstance();
+
+  if(date){
+    return schedulerState.getSchedules(date);
+  }
   return schedulerState.getSchedules();
 }
 
