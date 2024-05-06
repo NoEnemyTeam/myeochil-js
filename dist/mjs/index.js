@@ -1,3 +1,1 @@
-export const hello = (name) => {
-    return `hello ${name}`;
-};
+export { isLeapYear } from "./isLeapYear";

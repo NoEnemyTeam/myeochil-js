@@ -1,1 +1,1 @@
-export declare const hello: (name: string) => string;
+export { isLeapYear } from "./isLeapYear";

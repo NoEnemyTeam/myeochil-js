@@ -1,7 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.hello = void 0;
-const hello = (name) => {
-    return `hello ${name}`;
-};
-exports.hello = hello;
+exports.isLeapYear = void 0;
+var isLeapYear_1 = require("./isLeapYear");
+Object.defineProperty(exports, "isLeapYear", { enumerable: true, get: function () { return isLeapYear_1.isLeapYear; } });
