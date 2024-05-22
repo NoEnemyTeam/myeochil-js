@@ -1,2 +1,4 @@
 export { isValidDate } from "./isValidDate";
-export declare const hello: (name: string) => string;
+export { isLeapYear } from "./isLeapYear";
+export { getFutureDate } from './getFuture/getFutureDate';
+export { getFutureWeekday } from './getFuture/getFutureWeekday';
