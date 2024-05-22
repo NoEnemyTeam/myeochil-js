@@ -1,3 +1,2 @@
-export const hello = (name: string): string => {
-    return `hello ${name}`;
-}
+export { getFutureDate } from './getFuture/getFutureDate';
+export { getFutureWeekday } from './getFuture/getFutureWeekday';
