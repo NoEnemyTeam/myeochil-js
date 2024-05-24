@@ -1,3 +1,5 @@
+export { calDaysBetween } from './calDate/calDaysBetween'
+export { sortDates } from './calDate/sortDate'
 export { addYearSchedule } from './schedules/addSchedule'
 export { addMonthSchedule } from './schedules/addSchedule'
 export { addWeekSchedule } from './schedules/addSchedule'
