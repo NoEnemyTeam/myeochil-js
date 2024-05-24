@@ -1,3 +1,4 @@
+export { calAge } from './calAge'
 export { calDaysBetween } from './calDate/calDaysBetween'
 export { sortDates } from './calDate/sortDate'
 export { addYearSchedule } from './schedules/addSchedule'
