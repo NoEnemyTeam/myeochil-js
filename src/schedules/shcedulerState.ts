@@ -41,7 +41,15 @@ class SchedulerState {
   }
 
   public addSchedule(job: Job) {
-    this.schedules.push(job);
+    const isJobExist = this.schedules.some(existingJob => existingJob.name === job.name);
+    if (!isJobExist)
+    {
+      this.schedules.push(job);
+    }
+    else
+    {
+      throw new Error(`Job ${job.name} already exists.`)
+    }
   }
 
   public deleteScheduleByName(name: string) {
@@ -51,7 +59,7 @@ class SchedulerState {
       this.schedules.splice(index, 1);
     }
     else {
-      console.log(`Schedule ${name} is not found.`)
+      return(`Schedule ${name} is not found.`)
     }
   }
 

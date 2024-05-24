@@ -12,7 +12,7 @@ export function getSchedules(date?:string) {
 
 export function deleteSchedule(name: string) {
   const schedulerState = SchedulerState.getInstance();
-  schedulerState.deleteScheduleByName(name);
+  return schedulerState.deleteScheduleByName(name);
 }
 
 export function printSchedules() {
