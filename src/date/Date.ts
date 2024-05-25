@@ -26,3 +26,42 @@ export function checkValidationSolarDate(date: TargetDate): boolean{
     }
     return true;
 }
+
+export function findValidationDay(year: number, month: number): number{
+    if(year <=0){
+        throw Error('invalid year. plz input number range at least zero');
+    }
+    if(month > 12){
+        throw Error('invalid month. plz input number range of 1~12');
+    }
+    const solMonthDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if(year % 4 === 0  && month === 2 ){
+        return 29;
+    }
+    return solMonthDay[month-1];   
+}
+
+
+
+
+
+export function changeDateType(date: string): TargetDate{
+    let convertDate: TargetDate;
+
+    if(typeof date === 'string'){
+        const [yearStr, monthStr, dayStr] = date.split('-');
+        const year = parseInt(yearStr, 10);
+        const month = parseInt(monthStr, 10);
+        const day = parseInt(dayStr, 10);
+        convertDate = {
+            year: year,
+            month: month,
+            day: day
+        }
+    }
+    else{
+        convertDate = date;
+    }
+
+    return convertDate;
+}
