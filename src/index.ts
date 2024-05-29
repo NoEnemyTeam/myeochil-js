@@ -1,6 +1,7 @@
 export { addYearSchedule } from './schedules/addSchedule'
 export { addMonthSchedule } from './schedules/addSchedule'
 export { addWeekSchedule } from './schedules/addSchedule'
+export { addIntervalSchedule } from './schedules/addSchedule'
 export { getSchedules } from './schedules/scheduleManage'
 export { deleteSchedule } from './schedules/scheduleManage'
 export { printSchedules } from './schedules/scheduleManage'
