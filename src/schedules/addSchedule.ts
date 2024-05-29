@@ -1,4 +1,4 @@
-import { scheduleJob, RecurrenceRule, Job } from 'node-schedule';
+import { scheduleJob, RecurrenceRule, Job, rescheduleJob } from 'node-schedule';
 import SchedulerState from './shcedulerState';
 import { deleteSchedule } from './scheduleManage';
 
@@ -32,7 +32,7 @@ export function addYearSchedule (date: string, name: string, isRepeated: boolean
   rule.date = day;
   rule.hour = hour;
   rule.minute = minute;
-  rule.second = second;
+  rule.second = second || 0;
 
   const job = scheduleJob(name, rule, function(){
     console.log(`${name} is called: ${new Date()}`);
@@ -58,7 +58,7 @@ export function addMonthSchedule (date: string, name: string, isRepeated: boolea
   rule.date = day;
   rule.hour = hour;
   rule.minute = minute;
-  rule.second = second;
+  rule.second = second || 0;
 
   const job = scheduleJob(name, rule, function(){
     console.log(`${name} is called: ${new Date()}`);
@@ -85,7 +85,7 @@ export function addWeekSchedule(dayOfWeek: number, time: string, name: string, i
   rule.dayOfWeek = dayOfWeek;
   rule.hour = hour;
   rule.minute = minute;
-  rule.second = second;
+  rule.second = second || 0;
 
   const job = scheduleJob(name, rule, function() {
     console.log(`${name} is called: ${new Date()}`);
@@ -102,5 +102,47 @@ export function addWeekSchedule(dayOfWeek: number, time: string, name: string, i
   catch (error) {
     throw error;
   }
+
+};
+
+export function addIntervalSchedule(dayOfWeek: number, time: string, name: string, weekInterval: number, isRepeated: boolean = true) {
+  const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
+  const rule = new RecurrenceRule();
+    rule.dayOfWeek = dayOfWeek;
+    rule.hour = hour;
+    rule.minute = minute;
+    rule.second = second || 0;
+    
+    const job = scheduleJob(name, rule, function() {
+      console.log(`${name} is called: ${new Date()}`);
+
+      if (!isRepeated) {
+        deleteSchedule(name);
+      }
+      else {
+        const nextDate = new Date();
+        nextDate.setDate(nextDate.getDate() + weekInterval * 7);
+
+        const rule = new RecurrenceRule();
+        rule.year = nextDate.getFullYear();
+        rule.month = nextDate.getMonth() + 1;
+        rule.month = nextDate.getMonth();
+        rule.date = nextDate.getDate();
+        rule.dayOfWeek = dayOfWeek;
+        rule.hour = hour;
+        rule.minute = minute;
+        rule.second = second || 0;
+
+        const schedulerState = SchedulerState.getInstance();
+        schedulerState.resetSchedule(rule, name);
+      }
+    });
+
+    try {
+      addSchedule(job);
+      return 'add Weekly Schedule';
+    } catch (error) {
+      throw error;
+    }
 
 };

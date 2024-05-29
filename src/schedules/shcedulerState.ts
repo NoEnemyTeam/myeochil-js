@@ -1,4 +1,4 @@
-import { Job, scheduleJob } from 'node-schedule';
+import { Job, JobCallback, RecurrenceRule, scheduleJob } from 'node-schedule';
 
 interface NamedJob extends Job {
   name: string;
@@ -49,6 +49,15 @@ class SchedulerState {
     else
     {
       throw new Error(`Job ${job.name} already exists.`)
+    }
+  }
+
+  public resetSchedule(rule: RecurrenceRule, name: string) {
+    const index = this.schedules.findIndex(job => job && job.name === name);
+    if (index !== -1) {
+      this.schedules[index].reschedule(rule);
+    } else {
+      console.error(`Schedule ${name} is not found.`);
     }
   }
 
