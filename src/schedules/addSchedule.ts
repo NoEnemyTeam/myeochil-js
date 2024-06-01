@@ -5,12 +5,25 @@ import { deleteSchedule } from './scheduleManage';
 function parseDateTime(dateTimeString: string): number[] {
   const [date, time] = dateTimeString.split(' ');
   const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
+  if(hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
+    throw new Error("Error: Invalid time Argument. please input correct time. ex) HH:mm:ss.");
+  }
+  
   if (date.length >= 3) {
     const [month, day] = date.split('-').map(num => parseInt(num, 10));
+
+    if(month < 1 || month > 12 || day < 1 || day > 31) {
+      throw new Error("Error: Invalid Date Argument. please input correct date. ex) MM-DD.");
+    }
+
     return [month - 1, day, hour, minute, second];
   }
   else {
     const day = parseInt(date, 10);
+    if(day < 1 || day > 31) {
+      throw new Error("Error: Invalid Date Argument. please input correct date. ex) DD.");
+    }
+
     return [day, hour, minute, second];
   }
 }
@@ -69,6 +82,11 @@ export function addWeekSchedule(dayOfWeek: string, time: string, name: string, i
       throw new Error("Error: Invalid weekday");
   }
   const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
+
+  if(hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
+    throw new Error("Error: Invalid time Argument. please input correct time. ex) HH:mm:ss.");
+  }
+
   const rule = new RecurrenceRule();
   rule.dayOfWeek = weekdayIndex;
   rule.hour = hour;
@@ -101,6 +119,11 @@ export function addIntervalSchedule(dayOfWeek: string, time: string, name: strin
       throw new Error("Error: Invalid weekday");
   }
   const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
+
+  if(hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
+    throw new Error("Error: Invalid time Argument. please input correct time. ex) HH:mm:ss.");
+  }
+
   const rule = new RecurrenceRule();
     rule.dayOfWeek = weekdayIndex;
     rule.hour = hour;
