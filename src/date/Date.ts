@@ -45,7 +45,7 @@ export function findValidationDay(year: number, month: number): number{
 
 
 
-export function changeDateType(date: string): TargetDate{
+export function changeDateType(date: string | TargetDate): TargetDate{
     let convertDate: TargetDate;
 
     if(typeof date === 'string'){
@@ -62,6 +62,6 @@ export function changeDateType(date: string): TargetDate{
     else{
         convertDate = date;
     }
-
+    checkValidationSolarDate(convertDate);
     return convertDate;
 }
