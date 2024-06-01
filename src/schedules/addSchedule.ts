@@ -79,10 +79,16 @@ export function addMonthSchedule (date: string, name: string, isRepeated: boolea
 };
 
 
-export function addWeekSchedule(dayOfWeek: number, time: string, name: string, isRepeated: boolean = true) {
+export function addWeekSchedule(dayOfWeek: string, time: string, name: string, isRepeated: boolean = true) {
+  const weekdays = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    
+  const weekdayIndex = weekdays.indexOf(dayOfWeek);
+  if (weekdayIndex === -1) {
+      throw new Error("Invalid weekday");
+  }
   const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
   const rule = new RecurrenceRule();
-  rule.dayOfWeek = dayOfWeek;
+  rule.dayOfWeek = weekdayIndex;
   rule.hour = hour;
   rule.minute = minute;
   rule.second = second || 0;
@@ -105,10 +111,16 @@ export function addWeekSchedule(dayOfWeek: number, time: string, name: string, i
 
 };
 
-export function addIntervalSchedule(dayOfWeek: number, time: string, name: string, weekInterval: number, isRepeated: boolean = true) {
+export function addIntervalSchedule(dayOfWeek: string, time: string, name: string, weekInterval: number, isRepeated: boolean = true) {
+  const weekdays = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];    
+  
+  const weekdayIndex = weekdays.indexOf(dayOfWeek);
+  if (weekdayIndex === -1) {
+      throw new Error("Invalid weekday");
+  }
   const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
   const rule = new RecurrenceRule();
-    rule.dayOfWeek = dayOfWeek;
+    rule.dayOfWeek = weekdayIndex;
     rule.hour = hour;
     rule.minute = minute;
     rule.second = second || 0;
@@ -128,7 +140,7 @@ export function addIntervalSchedule(dayOfWeek: number, time: string, name: strin
         rule.month = nextDate.getMonth() + 1;
         rule.month = nextDate.getMonth();
         rule.date = nextDate.getDate();
-        rule.dayOfWeek = dayOfWeek;
+        rule.dayOfWeek = weekdayIndex;
         rule.hour = hour;
         rule.minute = minute;
         rule.second = second || 0;
