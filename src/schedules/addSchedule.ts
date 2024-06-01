@@ -2,18 +2,25 @@ import { scheduleJob, RecurrenceRule, Job } from 'node-schedule';
 import SchedulerState from './shcedulerState';
 import { deleteSchedule } from './scheduleManage';
 
+function parseTime(time: string) {
+  const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
+
+  if(hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
+    throw new Error("Invalid time Argument. please input correct time. ex) HH:mm:ss.");
+  }
+
+  return [hour, minute, second];
+}
+
 function parseDateTime(dateTimeString: string): number[] {
   const [date, time] = dateTimeString.split(' ');
-  const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
-  if(hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
-    throw new Error("Error: Invalid time Argument. please input correct time. ex) HH:mm:ss.");
-  }
+  const [hour, minute, second] = parseTime(time);
   
   if (date.length >= 3) {
     const [month, day] = date.split('-').map(num => parseInt(num, 10));
 
     if(month < 1 || month > 12 || day < 1 || day > 31) {
-      throw new Error("Error: Invalid Date Argument. please input correct date. ex) MM-DD.");
+      throw new Error("Invalid Date Argument. please input correct date. ex) MM-DD.");
     }
 
     return [month - 1, day, hour, minute, second];
@@ -21,7 +28,7 @@ function parseDateTime(dateTimeString: string): number[] {
   else {
     const day = parseInt(date, 10);
     if(day < 1 || day > 31) {
-      throw new Error("Error: Invalid Date Argument. please input correct date. ex) DD.");
+      throw new Error("Invalid Date Argument. please input correct date. ex) DD.");
     }
 
     return [day, hour, minute, second];
@@ -73,19 +80,14 @@ export function addSchedule (date: string, name: string, isRepeated: boolean = t
   }
 };
 
-
 export function addWeekSchedule(dayOfWeek: string, time: string, name: string, isRepeated: boolean = true) {
   const weekdays = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     
   const weekdayIndex = weekdays.indexOf(dayOfWeek);
   if (weekdayIndex === -1) {
-      throw new Error("Error: Invalid weekday");
+      throw new Error("Invalid weekday");
   }
-  const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
-
-  if(hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
-    throw new Error("Error: Invalid time Argument. please input correct time. ex) HH:mm:ss.");
-  }
+  const [hour, minute, second] = parseTime(time)
 
   const rule = new RecurrenceRule();
   rule.dayOfWeek = weekdayIndex;
@@ -116,13 +118,9 @@ export function addIntervalSchedule(dayOfWeek: string, time: string, name: strin
   
   const weekdayIndex = weekdays.indexOf(dayOfWeek);
   if (weekdayIndex === -1) {
-      throw new Error("Error: Invalid weekday");
+      throw new Error("Invalid weekday");
   }
-  const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
-
-  if(hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
-    throw new Error("Error: Invalid time Argument. please input correct time. ex) HH:mm:ss.");
-  }
+  const [hour, minute, second] = parseTime(time);
 
   const rule = new RecurrenceRule();
     rule.dayOfWeek = weekdayIndex;
@@ -161,5 +159,4 @@ export function addIntervalSchedule(dayOfWeek: string, time: string, name: strin
     } catch (error) {
       throw error;
     }
-
 };

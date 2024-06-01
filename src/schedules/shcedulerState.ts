@@ -48,7 +48,7 @@ class SchedulerState {
     }
     else
     {
-      throw new Error(`Error: Conflict. Job ${job.name} already exists.`)
+      throw new Error(`Conflict. Job ${job.name} already exists.`)
     }
   }
 
@@ -57,7 +57,7 @@ class SchedulerState {
     if (index !== -1) {
       this.schedules[index].reschedule(rule);
     } else {
-      throw new Error(`Error: NotFoundExecption. Schedule ${name} can not find.`);
+      throw new Error(`NotFoundExecption. Schedule ${name} can not find.`);
     }
   }
 
@@ -68,7 +68,7 @@ class SchedulerState {
       this.schedules.splice(index, 1);
     }
     else {
-      throw new Error(`Error: NotFoundExecption. Schedule ${name} can not find.`);
+      throw new Error(`NotFoundExecption. Schedule ${name} can not find.`);
     }
   }
 
