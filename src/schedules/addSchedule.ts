@@ -1,4 +1,4 @@
-import { scheduleJob, RecurrenceRule, Job, rescheduleJob } from 'node-schedule';
+import { scheduleJob, RecurrenceRule, Job } from 'node-schedule';
 import SchedulerState from './shcedulerState';
 import { deleteSchedule } from './scheduleManage';
 
@@ -15,7 +15,7 @@ function parseDateTime(dateTimeString: string): number[] {
   }
 }
 
-function addSchedule(job: Job){
+function _addSchedule(job: Job){
   const schedulerState = SchedulerState.getInstance();
   try {
     schedulerState.addSchedule(job);
@@ -25,14 +25,23 @@ function addSchedule(job: Job){
   }
 }
 
-export function addYearSchedule (date: string, name: string, isRepeated: boolean = true) {
-  const [month, day, hour, minute, second] = parseDateTime(date);
+export function addSchedule (date: string, name: string, isRepeated: boolean = true) {
   const rule = new RecurrenceRule();
-  rule.month = month;
-  rule.date = day;
-  rule.hour = hour;
-  rule.minute = minute;
-  rule.second = second || 0;
+  if (date.length >= 3) {
+    const [month, day, hour, minute, second] = parseDateTime(date);
+    rule.month = month;
+    rule.date = day;
+    rule.hour = hour;
+    rule.minute = minute;
+    rule.second = second || 0;
+  }
+  else {
+    const [day, hour, minute, second] = parseDateTime(date);
+    rule.date = day;
+    rule.hour = hour;
+    rule.minute = minute;
+    rule.second = second || 0;
+  }
 
   const job = scheduleJob(name, rule, function(){
     console.log(`${name} is called: ${new Date()}`);
@@ -43,7 +52,7 @@ export function addYearSchedule (date: string, name: string, isRepeated: boolean
   });
 
   try {
-    addSchedule(job);
+    _addSchedule(job);
     return 'add Annual Schedule'
   }
   catch (error) {
@@ -52,39 +61,12 @@ export function addYearSchedule (date: string, name: string, isRepeated: boolean
 };
 
 
-export function addMonthSchedule (date: string, name: string, isRepeated: boolean = true) {
-  const [day, hour, minute, second] = parseDateTime(date);
-  const rule = new RecurrenceRule();
-  rule.date = day;
-  rule.hour = hour;
-  rule.minute = minute;
-  rule.second = second || 0;
-
-  const job = scheduleJob(name, rule, function(){
-    console.log(`${name} is called: ${new Date()}`);
-
-    if (!isRepeated) {
-      deleteSchedule(name);
-    }
-  });
-
-  try {
-    addSchedule(job);
-    return 'add Monthly Schedule'
-  }
-  catch (error) {
-    throw error;
-  }
-
-};
-
-
 export function addWeekSchedule(dayOfWeek: string, time: string, name: string, isRepeated: boolean = true) {
   const weekdays = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     
   const weekdayIndex = weekdays.indexOf(dayOfWeek);
   if (weekdayIndex === -1) {
-      throw new Error("Invalid weekday");
+      throw new Error("Error: Invalid weekday");
   }
   const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
   const rule = new RecurrenceRule();
@@ -102,7 +84,7 @@ export function addWeekSchedule(dayOfWeek: string, time: string, name: string, i
   });
 
   try {
-    addSchedule(job);
+    _addSchedule(job);
     return 'add Weekly Schedule';
   }
   catch (error) {
@@ -116,7 +98,7 @@ export function addIntervalSchedule(dayOfWeek: string, time: string, name: strin
   
   const weekdayIndex = weekdays.indexOf(dayOfWeek);
   if (weekdayIndex === -1) {
-      throw new Error("Invalid weekday");
+      throw new Error("Error: Invalid weekday");
   }
   const [hour, minute, second] = time.split(':').map(num => parseInt(num, 10));
   const rule = new RecurrenceRule();
@@ -151,7 +133,7 @@ export function addIntervalSchedule(dayOfWeek: string, time: string, name: strin
     });
 
     try {
-      addSchedule(job);
+      _addSchedule(job);
       return 'add Weekly Schedule';
     } catch (error) {
       throw error;

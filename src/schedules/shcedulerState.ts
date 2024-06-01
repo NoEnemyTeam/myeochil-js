@@ -1,4 +1,4 @@
-import { Job, JobCallback, RecurrenceRule, scheduleJob } from 'node-schedule';
+import { Job, RecurrenceRule, } from 'node-schedule';
 
 interface NamedJob extends Job {
   name: string;
@@ -48,7 +48,7 @@ class SchedulerState {
     }
     else
     {
-      throw new Error(`Job ${job.name} already exists.`)
+      throw new Error(`Error: Conflict. Job ${job.name} already exists.`)
     }
   }
 
@@ -57,7 +57,7 @@ class SchedulerState {
     if (index !== -1) {
       this.schedules[index].reschedule(rule);
     } else {
-      console.error(`Schedule ${name} is not found.`);
+      throw new Error(`Error: NotFoundExecption. Schedule ${name} can not find.`);
     }
   }
 
@@ -68,7 +68,7 @@ class SchedulerState {
       this.schedules.splice(index, 1);
     }
     else {
-      return(`Schedule ${name} is not found.`)
+      throw new Error(`Error: NotFoundExecption. Schedule ${name} can not find.`);
     }
   }
 
