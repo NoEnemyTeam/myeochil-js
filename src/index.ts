@@ -1,3 +1,7 @@
+export { isValidDate } from "./isValidDate"
+export { isLeapYear } from "./isLeapYear"
+export { getFutureDate } from './getFuture/getFutureDate';
+export { getFutureWeekday } from './getFuture/getFutureWeekday';
 export { calAge } from './calAge'
 export { calDaysBetween } from './calDate/calDaysBetween'
 export { sortDates } from './calDate/sortDate'
