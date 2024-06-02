@@ -135,11 +135,8 @@ export function getSpecificDate(year: number, month: number, week: number, day: 
     month -= 1; // JavaScript Date 객체의 month는 0부터 시작
     let firstDayOfMonth = new Date(year, month, 1);
     let firstDayOfWeek = firstDayOfMonth.getDay();
-    
-    // 주어진 day는 1: 월요일, ..., 7: 일요일 이므로, 이를 JavaScript 요일로 변환
     let targetWeekday = day + 1;
 
-    // 첫번째 주의 첫 번째 targetWeekday 날짜를 찾습니다.
     let startDay = firstDayOfWeek <= targetWeekday ? 
                    targetWeekday - firstDayOfWeek + 1 : 
                    7 - firstDayOfWeek + targetWeekday + 1;
@@ -147,8 +144,6 @@ export function getSpecificDate(year: number, month: number, week: number, day: 
     let date = startDay + (week - 1) * 7;
 
     let resultDate = new Date(year, month, date);
-
-    // 'yyyy-mm-dd' 문자열로 반환
     let formattedDate = resultDate.toISOString().split('T')[0];
 
     return formattedDate;
