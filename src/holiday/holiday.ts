@@ -10,7 +10,7 @@ export function isHoliday(
 
     const validCountries = ['korea', 'china', 'us', 'japan', 'us-califonia','us-newyork','us-massachusetts', 'us-kansas']
     if (!validCountries.includes(country)) {
-        throw new Error('Invalid country Error.');
+        throw new Error('Invalid Country Error: check reademe');
     }
 
     let targetDate: TargetDate = typeof date === 'string' ? changeDateType(date) : date;
@@ -31,7 +31,7 @@ export function isHoliday(
             const lunarDateString = `${targetDate.year}-${String(targetDate.month).padStart(2, '0')}-${String(targetDate.day).padStart(2, '0')}`;
             const solarDate = toLunar(lunarDateString);
             if (typeof solarDate === 'undefined') {
-                throw new Error('Invalid type Error.');
+                throw new Error('Invalid Type Error.');
             }
             targetDate = changeDateType(solarDate);
             formattedDate = `${String(targetDate.month).padStart(2, '0')}${String(targetDate.day).padStart(2, '0')}`;
@@ -72,21 +72,21 @@ export function getHolidays(
     const validCountries = Object.keys(countryHoliday);
 
     if (!validCountries.includes(country)) {
-        throw new Error('Invalid country Error.');
+        throw new Error('Invalid Country Error.');
     }
 
     if(year &&( year >2040 || year <1900)){
-        throw Error('Invalid year  Error. please input year range of 1900~2040')
+        throw Error('Invalid Year Error. please input year range of 1900~2040')
     }
 
     if(month &&( month >12 || month <1)){
-        throw new Error('Invalid month Error. please input month range of 1~12')
+        throw new Error('Invalid Month Error. please input month range of 1~12')
     }
 
     const holidays = countryHoliday[country];
     const lunarHolidays = countryHoliday[`${country}-lunar`];
     if (!holidays && !lunarHolidays) {
-        throw new Error('No holidays found for the specified country.');
+        throw new Error('NotFoundError: no holidays found for the specified country.');
     }
 
     const result: HolidayInfo[] = [];

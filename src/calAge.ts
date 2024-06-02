@@ -3,7 +3,7 @@ import { isValidDate } from "./isValidDate";
 
 export function calAge(birthDate: string, referenceDate: string): number | string {
   if (!isValidDate(birthDate) || !isValidDate(referenceDate)) {
-    throw new Error("Enter a valid date that exists in the calendar");
+    throw new Error("Error: enter a valid date that exists in the calendar");
   }
 
   const birth = new Date(birthDate);
@@ -11,7 +11,7 @@ export function calAge(birthDate: string, referenceDate: string): number | strin
 
 
   if (birth.getTime() > reference.getTime()) {
-    throw new Error("ReferenceDate is earlier than birthDate.");
+    throw new Error("Error: referenceDate is earlier than birthDate.");
   }
 
   let age = reference.getFullYear() - birth.getFullYear();

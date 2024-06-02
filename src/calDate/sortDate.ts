@@ -8,7 +8,7 @@ export function sortDates(dates: string[], option?: string): string[]{
     sortedDates.sort((date1, date2) => compareDates(date2, date1));
   }
   else{
-    throw new Error('Invalid "other argument name" value. please input correct value.')
+    throw new Error('Invalid value: Please input correct value.')
   }
 
   return sortedDates;

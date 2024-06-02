@@ -29,10 +29,10 @@ export function checkValidationSolarDate(date: TargetDate): boolean{
 
 export function findValidationDay(year: number, month: number): number{
     if(year <=0){
-        throw Error('invalid year. plz input number range at least zero');
+        throw Error('Invalid Year: please input number range at least zero');
     }
     if(month > 12){
-        throw Error('invalid month. plz input number range of 1~12');
+        throw Error('Invalid Month. please input number range of 1~12');
     }
     const solMonthDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     if(year % 4 === 0  && month === 2 ){

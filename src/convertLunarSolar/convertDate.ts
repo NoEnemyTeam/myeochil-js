@@ -45,7 +45,7 @@ export function toSolar(date: TargetDate | string): TargetDate | undefined{
         convertDate = date;
     }
 
-    if(!checkValidationSolarDate(convertDate)){ throw new RangeError('RangeError: please input correct Range of solar date')}
+    if(!checkValidationSolarDate(convertDate)){ throw new RangeError('RangeError: please input correct range of solar date')}
     /* 양력/음력 변환 */
     let convertedSolarDate = calculateLunarSolar(convertDate, 2);
     return convertedSolarDate;
@@ -183,7 +183,7 @@ function calculateLunarSolar(date: TargetDate, type:number): TargetDate | undefi
             lunMonth = 1;
             lunDay = 1;
 
-            if (lunYear > 2043) { throw RangeError("RangeError: Invalid Lunar Year."); }
+            if (lunYear > 2043) { throw RangeError("RangeError: invalid lunar year."); }
 
             // 연도가 바꼈기에 index값 수정
             lunIndex = lunYear - 1899;

@@ -25,7 +25,7 @@ export function formatDate(date: string, format?: string): string | { [key: stri
             formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
         } else {
             // 지원하지 않는 형식일 경우 오류 메시지 반환
-            throw new Error("Unsupported date format. Please use 'DD-MM-YYYY' or 'MM-DD-YYYY'.");
+            throw new Error("Unsupported Date Format: please use 'DD-MM-YYYY' or 'MM-DD-YYYY'.");
         }
     
         // 시간 부분이 있는 경우 시간을 붙여줌
@@ -36,7 +36,7 @@ export function formatDate(date: string, format?: string): string | { [key: stri
         }
     }else {
         // 지원하지 않는 형식일 경우 오류 메시지 반환
-        throw new Error("Unsupported date format. Please use 'DD-MM-YYYY' or 'MM-DD-YYYY'.");
+        throw new Error("Unsupported Date Format: please use 'DD-MM-YYYY' or 'MM-DD-YYYY'.");
     }
 
     return result;

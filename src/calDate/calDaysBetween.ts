@@ -3,7 +3,7 @@ import { isValidDate } from '../isValidDate';
 
 export function calDaysBetween(dateStr1: string, dateStr2: string): number {
   if (!isValidDate(dateStr1) || !isValidDate(dateStr2)) {
-    throw new Error("Enter a valid date that exists in the calendar");
+    throw new Error("Invalid Date: enter a valid date that exists in the calendar");
   }
   const date1 = parseISO(dateStr1);
   const date2 = parseISO(dateStr2);
