@@ -1,4 +1,3 @@
-import { Job } from 'node-schedule';
 import SchedulerState from './shcedulerState';
 
 export function getSchedules(date?:string) {
