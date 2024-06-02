@@ -9,7 +9,7 @@ export function calTimezone(fromCity: string, toCity: string): number {
         const timezoneDifference = fromUtc - toUtc;
         return timezoneDifference;
     } else {
-        throw new Error('Invalid city name');
+        throw new Error('Invalid City Name: please check readme');
     }
 }
 
@@ -22,7 +22,7 @@ export function convertTimezone(datetime: string, fromTimezone: string, toTimezo
     const formattedDay = day.padStart(2, "0");
 
     if(!checkValidationSolarDate({ year: parseInt(year), month: parseInt(month), day: parseInt(day) })){
-        throw Error('invalid Date. plz input valid Date');
+        throw Error('Invalid Date: please input valid date');
     }
     
     // 시간대 변환
@@ -65,6 +65,6 @@ export function convertTimezone(datetime: string, fromTimezone: string, toTimezo
         return `${parseInt(year) + 1}-${'01'}-${'01'} ${convertedHour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}:${second.toString().padStart(2, "0")}`;
     }
 
-    throw Error('invaild Error. contact admin lol');
+    throw Error('invaild Error: contact admin');
 
 }

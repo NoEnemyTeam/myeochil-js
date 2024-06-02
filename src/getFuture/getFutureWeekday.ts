@@ -7,7 +7,7 @@ export function getFutureWeekday(date: string, description?: string): string {
     const weekdayStr = weekdays[dateObj.getDay()];
 
     if (!isValidDate(date)) {
-        throw new Error("Enter a valid date that exists in the calendar");
+        throw new Error("NotFoundError: enter a valid date that exists in the calendar");
     }
 
     if (description) {
