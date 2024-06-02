@@ -3,7 +3,7 @@ export function getFutureDate(year: number, month: number, week: number, weekday
     
     const weekdayIndex = weekdays.indexOf(weekday);
     if (weekdayIndex === -1) {
-        throw new Error("Invalid weekday");
+        throw new Error("Invalid weekday: please check weekday");
     }
 
     const firstDayOfMonth = new Date(year, month - 1, 1);

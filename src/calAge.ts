@@ -3,7 +3,7 @@ export function calAge(birthDate: string, referenceDate: string): number | strin
   const reference = new Date(referenceDate);
 
   if (birth.getTime() > reference.getTime()) {
-    return "Error: ReferenceDate is earlier than birthDate.";
+    throw new Error("Error: ReferenceDate is earlier than birthDate.");
   }
 
   let age = reference.getFullYear() - birth.getFullYear();

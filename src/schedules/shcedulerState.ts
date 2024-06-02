@@ -48,7 +48,7 @@ class SchedulerState {
     }
     else
     {
-      throw new Error(`Job ${job.name} already exists.`)
+      throw new Error(`Error: Job ${job.name} already exists.`)
     }
   }
 
@@ -57,7 +57,7 @@ class SchedulerState {
     if (index !== -1) {
       this.schedules[index].reschedule(rule);
     } else {
-      console.error(`Schedule ${name} is not found.`);
+      console.error(`Error: Schedule ${name} is not found.`);
     }
   }
 

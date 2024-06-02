@@ -19,7 +19,7 @@ export function toLunar(date: TargetDate | string): TargetDate | undefined {
     else{
         convertDate = date;
     }
-    if(!checkValidationSolarDate(convertDate)){ throw new RangeError('양력 날짜 범위를 벗어났습니다. 다시 입력해주십시오.')}
+    if(!checkValidationSolarDate(convertDate)){ throw new RangeError('RangeError: please input range Argument')}
     /* 양력/음력 변환 */
     let convertedLunarDate = calculateLunarSolar(convertDate, 1);
     return convertedLunarDate;
@@ -45,7 +45,7 @@ export function toSolar(date: TargetDate | string): TargetDate | undefined{
         convertDate = date;
     }
 
-    if(!checkValidationSolarDate(convertDate)){ throw new RangeError('날짜 범위를 벗어났습니다. 다시 입력해주십시오.')}
+    if(!checkValidationSolarDate(convertDate)){ throw new RangeError('RangeError: please input correct Range of solar date')}
     /* 양력/음력 변환 */
     let convertedSolarDate = calculateLunarSolar(convertDate, 2);
     return convertedSolarDate;
@@ -63,7 +63,7 @@ function calculateLunarSolar(date: TargetDate, type:number): TargetDate | undefi
     const solMonthDay = [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     /* range check */
-    if (date.year < 1900 || date.year > 2040){ throw new RangeError('양력 날짜 범위를 벗어났습니다. 1901년 이상 2040년 이하만 가능합니다 '); }
+    if (date.year < 1900 || date.year > 2040){ throw new RangeError('RangeError: date is valuable year with 1990 ~ 2040 '); }
 
     if (date.year >= 2000)
     {
@@ -183,7 +183,7 @@ function calculateLunarSolar(date: TargetDate, type:number): TargetDate | undefi
             lunMonth = 1;
             lunDay = 1;
 
-            if (lunYear > 2043) { throw RangeError("입력하신 달은 없습니다."); }
+            if (lunYear > 2043) { throw RangeError("RangeError: Invalid Lunar Year."); }
 
             // 연도가 바꼈기에 index값 수정
             lunIndex = lunYear - 1899;
