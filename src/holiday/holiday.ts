@@ -1,6 +1,6 @@
-import { TargetDate, changeDateType } from "date/Date";
+import { TargetDate, changeDateType } from "../date/Date";
 import { HolidayInfo, countryHoliday, getSpecificDate } from "./config/hol";
-import { toLunar, toSolar } from "convertLunarSolar/convertDate";
+import { toLunar, toSolar } from "../convertLunarSolar/convertDate";
 
 export function isHoliday(
     country: string,
