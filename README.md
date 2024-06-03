@@ -12,7 +12,7 @@ Whether you're developing a web application that requires accurate public holida
 
 ## Features
 
-`myeochil-js` offers a wide range of functionalities including:
+**`myeochil-js`** offers a wide range of functionalities including:
 
 [**Country-specific public holiday information**](#country-specific-public-holiday-information): Provide fixed public holiday information for various countries.
 
@@ -32,7 +32,7 @@ Whether you're developing a web application that requires accurate public holida
 
 [**Future date calculation**](#future-date-calculation): Calculate the day of the week for future dates or the date for future days of the week.
 
-[**Project schedule management**]: Manage the schedules of project.
+[**Project schedule management**](#project-schedule-management): Manage the schedules of project.
 
 <br>
 <br> 
@@ -66,7 +66,11 @@ import { name } from "myeochil-js";
 
 
 
---- 
+
+## Docs
+
+---
+
 ## Country-specific public holiday information
 **supported country code**
 ```
@@ -274,8 +278,126 @@ console.log(toSolar('2024-04-25'));
 ## Time zone conversion and calculation
 **supported country code**
 ```
-
+├── Coordinated Universal Time
+├── Korea
+├── Argentina
+|   └── Buenos Aires
+├── Australia
+|   ├── Australia(East)
+|   └── Midway Island
+├── American Samoa
+├── Austria
+├── Bangladesh
+├── Bahrain
+├── Belgium
+├── Bhutan
+├── Brazil
+|   ├── Fernando de Noronha
+|   └── São Paulo
+├── Bulgaria
+├── Canada
+|   ├── Alberta
+|   ├── Canada Atlantic
+|   ├── Manitoba
+|   ├── Montreal
+|   ├── Quebec
+|   └── Vancouver
+├── Cambodia
+├── Cape Verde
+├── Chile
+├── China
+├── Hong Kong
+├── Colombia
+├── Cuba
+├── Czech Republic
+├── Denmark
+|   ├── Denmark
+|   └── Greenland
+├── East Timor
+├── Ecuador
+├── Egypt
+├── Fiji
+├── Finland
+├── France
+├── Tahiti
+├── Germany
+├── Georgia
+├── Greece
+├── Guam
+├── Iceland
+├── Indonesia
+|   ├── Indonesia(Central)
+|   └── Indonesia(West)
+├── Iraq
+├── Italy
+├── Japan
+├── Kazakhstan
+├── Kiribati
+├── Kuwait
+├── Kyrgyzstan
+├── Laos
+├── Libya
+├── Malaysia
+├── Maldives
+├── Marshall Islands
+├── Mexico
+|   └── Mexico City
+├── Micronesia
+├── Mongolia
+├── Nauru
+├── New Caledonia
+├── New Zealand
+├── Oman
+├── Palau
+├── Papua New Guinea
+├── Paraguay
+├── Peru
+├── Philippines
+├── Poland
+├── Portugal
+|   ├── Azores
+|   └── Lisbon
+├── Puerto Rico
+├── Qatar
+├── Russia
+├── Saipan
+├── Saudi Arabia
+├── Singapore
+├── Solomon Island
+├── South Georgia Island
+├── Thailand
+├── Turkey
+├── UAE
+├── United Kingdom
+|   └── London
+├── United States
+|   ├── Arizona
+|   ├── California
+|   ├── Honolulu
+|   ├── Illinois
+|   ├── New York
+|   ├── Utah
+|   ├── USA Alaska
+|   ├── USA Central
+|   ├── USA Eastern
+|   ├── USA Mountain
+|   ├── USA Pacific
+|   ├── Washington
+|   └── Wisconsin
+├── Uruguay
+├── Uzbekistan
+├── Vietnam
+├── West African
+└── Yemen
 ```
+
+
+
+
+
+
+
+
 ### **convertTimezone**
 Converts the time from the `fromTimezone` to the time of the `toTimezone` country. It takes a `datetime` in the format 'YYYY-MM-DD' as an argument and returns the converted time by applying the UTC offset difference between the two countries.
 
@@ -655,9 +777,9 @@ function getFutureWeekday(
 
 
 **Returns**
-| Type    | Description        |
-| ------- | ------------------ |
-| string | The date is valid  |
+| Type   | Description          |
+| -------| -------------------- |
+| string | The weekday of date  |
 
 
 **Examples**
@@ -671,3 +793,267 @@ console.log(getFutureWeekday("2024-06-01", false));
 console.log(getFutureWeekday("2024-06-01"));
 // => Saturday
 ```
+
+<br>
+
+--- 
+## Project schedule management
+### **getSchedules**
+Provides a functionality to query the schedules registered in the project. `date` is a string in `'YYYY-MM-DD'` format. If the `date` is not provided, it returns all the schedules registered in the project. If the `date` is provided, it returns the schedules registered for that specific date. It returns a list of objects containing the name (name) and the next invocation date (nextInvocation) of each registered schedule. The next invocation date information includes time, zone, and locale. If there are no schedules registered, an empty list is returned.
+
+**type**
+```js
+function getSchedules(
+  date?:string
+): NamedJob[]
+```
+
+**NamedJob**
+`NamedJob` extends `Job` from node-schedule.
+| Name   | Type   | Description     |
+|--------|--------| --------------- |
+| name   | string | Name of a Job   |
+
+
+**Arguments**
+| Name   | Type   | Description              |
+|--------|--------| ------------------------ |
+| date?  | string | Date to search shedules  |
+
+
+**Returns**
+| Type                   | Description                          |
+| ---------------------- | ------------------------------------ |
+| Array&lt;NamedJob&gt;  | An array containing jobs of project  |
+
+
+**Examples**
+```js
+console.log(getSchedules());
+// => 
+[
+  {
+    name: 'test1',
+    nextInvocation: CronDate {
+      _date: DateTime { ts: 2024-05-29T16:47:00.000+09:00, zone: Asia/Seoul, locale: ko-KR }
+    }
+  },
+  {
+    name: 'test2',
+    nextInvocation: CronDate {
+      _date: DateTime { ts: 2024-06-24T17:47:10.000+09:00, zone: Asia/Seoul, locale: ko-KR }
+    }
+  }
+]
+
+console.log(getSchedules('2024-05-29'));
+// => 
+[
+  {
+    name: 'test1',
+    nextInvocation: CronDate {
+      _date: DateTime { ts: 2024-05-29T16:47:00.000+09:00, zone: Asia/Seoul, locale: ko-KR }
+    }
+  }
+]
+
+```
+
+<br>
+
+### **printSchedules**
+Prints all schedules registered in the project. Unlike getSchedules(), it only retrieves the entire list of schedules and outputs a list containing only the names of each schedule. If there are no registered schedules, an empty list is output.
+
+**type**
+```js
+function printSchedules()
+```
+
+
+**Examples**
+```js
+printSchedules();
+// => [test1, test2, test3, test4]
+```
+
+<br>
+
+
+### **addSchedule**
+Add annual or monthly schedules to the project. `date` parameter is a string in the format `'MM-DD HH:mm:ss'` or `'DD HH:mm:ss'`, and `name` parameter is the name of the schedule to be registered. `isRepeated` parameter is a boolean that indicates whether the schedule is recurring, with a default value set to true. If the `date` is in the `'MM-DD HH:mm:ss'` format, an annual schedule is registered for the specified date and time. If the `date` is in the `'DD HH:mm:ss'` format, a monthly schedule is registered for the specified date and time. When the schedule is triggered, it outputs the schedule name and execution time to the console as an alert. If the alarm is successfully registered, the string `'add Schedule'` is returned. If a schedule with the same name already exists in the project, a warning message indicating that the schedule already exists is returned.
+
+
+**An example where the name of the schedule is 'test1' and it is called.**
+```
+test1 is called: Sat Jun 01 2024 00:30:00 GMT+0900 (대한민국 표준시)
+```
+
+
+**type**
+```js
+function addSchedule (
+    date: string,
+    name: string,
+    isRepeated?: boolean = true
+): string
+```
+
+
+**Arguments**
+| Name        | Type    | Description                                             |
+|-------------|---------| --------------------------------------------------------|
+| date        | string  | Date of schedule like 'MM-DD HH:mm:ss' or 'DD HH:mm:ss' |
+| name        | string  | Name of schedule                                        |
+| isRepeated? | boolean | Repeating                                               |
+
+
+**Returns**
+| Type    | Description                                               |
+| ------- | --------------------------------------------------------- |
+| string  | `add Schedule`: A new schedule is registered successfully |
+
+
+**Examples**
+```js
+console.log(addSchedule('05-29 16:47:00', 'test1', false));
+// => add Schedule
+
+addSchedule('24 17:00:10', 'test2', true);
+addSchedule('24 20:00:10', 'test2', true);
+//=> Error: Job test1 already exists.
+```
+
+
+<br>
+
+### **addWeekSchedule**
+Add a weekly schedule to the project, differing from `addSchedule()` by accepting a day of the week. `dayOfWeek` parameter specifies the day of the week on which the schedule will be executed each week and is input as a string. `time` parameter specifies the time at which the schedule will be triggered on the given day, formatted as `'HH:mm:ss'`. `name` parameter is the name of the schedule to be registered and must not duplicate any existing schedule names. `isRepeated` parameter is a boolean indicating whether the schedule is recurring, with a default value set to true. If the schedule is successfully registered, the string `'add Weekly Schedule'` is returned. The schedule will be logged with its name and execution time at the specified time on the specified day of the week.
+
+**An example where the name of the schedule is 'test1' and it is called.**
+```
+test1 is called: Sat Jun 01 2024 00:30:00 GMT+0900 (대한민국 표준시)
+```
+
+**type**
+```js
+function addWeekSchedule(
+    dayOfWeek: string,
+    time: string,
+    name: string,
+    isRepeated?: boolean = true
+): string
+```
+
+
+**Arguments**
+| Name        | Type    | Description                                |
+|-------------|---------| ------------------------------------------ |
+| dayOfWeek   | string  | dayOfWeek of schedule : Sunday to Saturday |
+| time        | string  | Time of schedule like 'HH:mm:ss'           |
+| name        | string  | Name of schedule                           |
+| isRepeated? | boolean | Repeating                                  |
+
+
+**Returns**
+| Type    | Description                                               |
+| ------- | --------------------------------------------------------- |
+| string  | `add Weekly Schedule`: A new schedule is registered successfully |
+
+
+**Examples**
+```js
+console.log(addWeekSchedule('Saturday', '17:00:00', 'test1'));
+// => add Weekly Schedule
+
+addSchedule('24 17:00:10', 'test2', true);
+addWeeklySchedule('24 20:00:10', 'test2', true);
+//=> Error: Job test1 already exists.
+```
+
+<br>
+
+### **addIntervalSchedule**
+Add a schedule to be called at specified intervals of weeks. Unlike `addWeekSchedule()`, which calls a schedule every week, `addIntervalSchedule()` allows setting the interval of weeks for the recurring schedule. The parameters `dayOfWeek`, `time`, `name`, and `isRepeated` are the same as those for `addWeekSchedule()`. The `weekInterval` parameter is a positive integer that represents the interval of weeks for the schedule to repeat. For example, if the `weekInterval` is 2, the schedule will be called every 2 weeks. Like `addWeekSchedule()`, if the schedule is successfully registered, the string `'add Weekly Schedule'` is returned. The schedule will be logged with its name and execution time at the specified time on the specified day of the week
+
+**An example where the name of the schedule is 'test1' and it is called.**
+```
+test1 is called: Sat Jun 01 2024 00:30:00 GMT+0900 (대한민국 표준시)
+```
+
+**type**
+```js
+function addIntervalSchedule(
+    dayOfWeek: string,
+    time: string,
+    name: string, 
+    weekInterval: number,
+    isRepeated?: boolean = true
+): string
+```
+
+
+**Arguments**
+| Name         | Type    | Description                                |
+|--------------|---------| ------------------------------------------ |
+| dayOfWeek    | string  | dayOfWeek of schedule : Sunday to Saturday |
+| time         | string  | Time of schedule like 'HH:mm:ss'           |
+| name         | string  | Name of schedule                           |
+| weekInterval | number  | Week Interval number                       |
+| isRepeated?  | boolean | Repeating                                  |
+
+
+
+**Returns**
+| Type    | Description                                               |
+| ------- | --------------------------------------------------------- |
+| string  | `add Weekly Schedule`: A new schedule is registered successfully |
+
+
+**Examples**
+```js
+console.log(addIntervalSchedule('Saturday', '17:00:30', 'test4', 5));
+// => add Weekly Schedule
+```
+
+
+<br>
+
+### **deleteSchedule**
+Deletes a schedule from the project by its registered name. If the `name` of an unregistered schedule is provided, an error message is returned. If the schedule is successfully deleted, nothing is returned.
+
+
+**type**
+```js
+function deleteSchedule(
+    name: string
+): None | string
+```
+
+
+**Arguments**
+| Name         | Type    | Description                |
+|--------------|---------| -------------------------- |
+| name         | string  | Name of schedule to delete |
+
+
+**Examples**
+```js
+deleteSchedule('test3');
+
+deleteSchedule('test3');
+// => Schedule test3 is not found.
+```
+
+<br><br><br><br><br>
+
+
+
+## Dependencies
+[date-fns](https://www.npmjs.com/package/date-fns)
+[node-shcedule](https://www.npmjs.com/package/node-schedule)
+[@types/node-schedule](https://www.npmjs.com/package/@types/node-schedule)
+
+<br>
+
+## License
+MIT © NoEnemyTeam
