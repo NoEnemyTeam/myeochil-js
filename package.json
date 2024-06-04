@@ -1,6 +1,6 @@
 {
   "name": "myeochil-js",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
@@ -21,9 +21,11 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@types/node-schedule": "^2.1.7",
     "typescript": "^5.4.3"
   },
   "dependencies": {
-    "date-fns": "^3.6.0"
+    "date-fns": "^3.6.0",
+    "node-schedule": "^2.1.1"
   }
 }
