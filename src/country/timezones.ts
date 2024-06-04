@@ -5,7 +5,7 @@ const timezones : Record<string, number>= {
     "Tahiti": -10,
     "USA Alaska": -9,
     "USA Pacific": -8,
-    "California": -8,
+    "California": -7,
     "Vancouver": -8,
     "Washington": -8,
     "USA Mountain": -7,
