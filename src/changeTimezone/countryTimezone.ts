@@ -41,7 +41,7 @@ export function convertTimezone(datetime: string, fromTimezone: string, toTimezo
     }
     if(convertedHour < 0 && parseInt(formattedDay) === 1 && parseInt(formattedMonth) > 1){
         convertedHour += 24;
-        return `${year}-${month}-${findValidationDay(parseInt(year), parseInt(month))} ${convertedHour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}:${second.toString().padStart(2, "0")}`;
+        return `${year}-${(parseInt(month) - 1).toString().padStart(2,"0 ")}-${findValidationDay(parseInt(year), parseInt(month) - 1)} ${convertedHour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}:${second.toString().padStart(2, "0")}`;
     }
 
     if(convertedHour < 0 && parseInt(formattedDay) === 1 && parseInt(formattedMonth) ===1){
@@ -65,6 +65,6 @@ export function convertTimezone(datetime: string, fromTimezone: string, toTimezo
         return `${parseInt(year) + 1}-${'01'}-${'01'} ${convertedHour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}:${second.toString().padStart(2, "0")}`;
     }
 
-    throw Error('invaild Error: contact admin');
+    throw Error('Range Error: you have to input correct date');
 
 }
